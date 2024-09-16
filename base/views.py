@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Todo
 # Create your views here.
@@ -30,11 +30,19 @@ def edit(request, pk):
         todo_obj.description = description
         todo_obj.status = status
         todo_obj.save()
-        todo_objs=Todo.objects.all()
-        data={'todos': todo_objs}
-        return render(request, 'index.html',data)
+        # todo_objs=Todo.objects.all()
+        # data={'todos': todo_objs}
+        # return render(request, 'index.html',data)
+        return redirect("home")
     data={'todo': todo_obj}
     return render(request, 'edit.html', context=data)
 
+def delete(request,pk):
+    todo_obj = Todo.objects.get(id=pk)
+    todo_obj.delete()
+    return redirect("home")
 
-    
+def delete1(request):
+    todo_obj=Todo.objects.all()
+    todo_obj.delete()
+    return redirect("home")
