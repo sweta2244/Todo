@@ -27,11 +27,65 @@
               <td>{{todo.name}}</td>
               <td>{{todo.description}}</td>
               <td>{{todo.status}}</td>
-              <td><a href="{% url 'edit' pk=todo.id %}"><button type="button" class="btn btn-warning">Edit</button></a> <a href="{% url 'delete' pk=todo.id%}"><button type"button" class="btn btn-warning">Delete</button></a></td>
+              <td><a href="{% url 'edit' pk=todo.id %}"><button type="button" class="btn btn-warning">Edit</button></a> 
+                <button type"button" class="btn btn-warning" id="deleteButton">Delete</button>
+                  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Are you sure you want to delete?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <a href="{% url 'delete' pk=todo.id%}"><button type="button" class="btn btn-danger">Delete</button></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <script>
+                    const deleteButton = document.getElementById('deleteButton');
+                    const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                  
+                    deleteButton.addEventListener('click', () => {
+                      deleteModal.show();
+                    });
+                  </script></td>
             </tr>
             {% endfor%}
             <tr>
-              <td><a href="{% url 'delete1' %}"><button type"button" class="btn btn-warning">DeleteAll</button></a></td>
+              <td>
+                <button type"button" class="btn btn-warning" id="deleteButton1">DeleteAll</button>
+                <div class="modal fade" id="deleteModal1" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel1">Delete all Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete all?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="{% url 'delete1' %}"><button type="button" class="btn btn-danger">Delete</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <script>
+                  const deleteButton1 = document.getElementById('deleteButton1');
+                  const deleteModal1 = new bootstrap.Modal(document.getElementById('deleteModal1'));
+                
+                  deleteButton1.addEventListener('click', () => {
+                    deleteModal1.show();
+                  });
+                </script>
+              </td>
             </tr>
             {% endif %}
         </tbody>
